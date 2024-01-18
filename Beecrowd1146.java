@@ -6,20 +6,20 @@ public class Beecrowd1146 {
         Scanner sc = new Scanner(System.in);
 
         int x = sc.nextInt();
-        String numbers = "";
+        StringBuilder numbers = new StringBuilder();
 
         while (x != 0) {
 
             for (int i = 1; i <= x ; i++) {
 
                 if (i < x) {
-                    numbers += i + " ";
+                    numbers.append(i).append(" ");
                 }  else {
-                    numbers += i + "";
+                    numbers.append(i);
                 }
             }
             System.out.println(numbers);
-            numbers = "";
+            numbers = new StringBuilder();
             x = sc.nextInt();
         }
     }

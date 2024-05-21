@@ -5,49 +5,64 @@ public class Beecrowd3142 {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+        char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
 
         while (sc.hasNext()) {
 
             String letters = sc.next().toUpperCase(Locale.ROOT);
-            String code = "";
+            char[] code = new char[3];
             int pos = 0;
 
             if (letters.length() == 1) {
                 for (int i = 0; i < alphabet.length; i++) {
-                    code = alphabet[i];
-                    if (letters.equals(code)) {
+
+                    if (letters.charAt(0) == alphabet[i]) {
                         pos = i;
                         break;
                     }
                 }
-            }   else if (letters.length() == 2) {
-                pos = 26;
-                outerloop:
-                for (int i = 0; i < letters.length(); i++) {
-                    code = alphabet[i];
-                    for (int j = 0; j < letters.length(); j++) {
-                        code = code.concat(alphabet[j]);
-                        System.out.println(code);
-                        pos++;
-                        if (letters.equals(code)) {
-                            break outerloop;
+            } else {
+
+
+                if (letters.length() == 2) {
+                    pos = 26;
+                    outerloop:
+                    for (char c : alphabet) {
+                        code[0] = c;
+                        for (char value : alphabet) {
+                            code[1] = value;
+                            pos++;
+                            boolean equal = code[0] == letters.charAt(0) && code[1] == letters.charAt(1);
+                            if (equal) {
+                                break outerloop;
+                            }
                         }
                     }
-                }
-            }   else if (letters.length() == 3) {
-                outerloop:
-                for (int i = 0; i < letters.length(); i++) {
-                    for (int j = 0; j < letters.length(); j++) {
-                        for (int k = 0; k < letters.length(); k++) {
-                            System.out.println(i);
+                } else if (letters.length() == 3) {
+                    pos = 676;
+                    anotherLoop:
+                    for (char c : alphabet) {
+                        code[0] = c;
+                        for (char value : alphabet) {
+                            code[1] = value;
+                            for (char item : alphabet) {
+                                pos++;
+                                code[2] = item;
+                                boolean equal = code[0] == letters.charAt(0) && code[1] == letters.charAt(1) && code[2] == letters.charAt(2);
+                                if (equal || pos > 16358) {
+                                    break anotherLoop;
+                                }
+                            }
                         }
                     }
                 }
             }
-
-        System.out.println(pos);
+            if (pos <= 16358) {
+                System.out.println(pos);
+            } else {
+                System.out.println("Essa coluna nao existe Tobias!");
+            }
         }
     }
 }
